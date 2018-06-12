@@ -4,7 +4,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install tokenizer
-RUN docker-php-ext-install imap
+RUN docker-php-ext-install imap --with-kerberos --with-imap-ssl
 
 #breaks cache
 RUN apt-get update \
