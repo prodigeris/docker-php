@@ -1,11 +1,12 @@
 FROM php:7.2.1-fpm
 
-RUN docker-php-ext-install pdo pdo_mysql
-RUN docker-php-ext-install mbstring
-RUN docker-php-ext-install bcmath
-RUN docker-php-ext-install tokenizer
-RUN docker-php-ext-install imap --with-kerberos --with-imap-ssl
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 
+RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions gd imap pdo_mysql bcmath
+
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install tokenizer
 #breaks cache
 RUN apt-get update \
 	&& apt-get install -y \
